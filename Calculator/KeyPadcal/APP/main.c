@@ -13,14 +13,14 @@ int main(void)
     LCD_voidInit(); // Initialize the LCD
     KPD_voidInit(); // Initialize the keypad
 
-    s8 buffer[16]; // Buffer to store user input
-    u32 buffer_index = 0; // Index to keep track of buffer position
+    char buffer[16]; // Buffer to store user input
+    uint8_t buffer_index = 0; // Index to keep track of buffer position
 
     LCD_voidClearDisplay(); // Clear the LCD
 
     while (1)
     {
-        u8 key = KPD_u8GetPressedKey(); // Get pressed key
+        char key = KPD_u8GetPressedKey(); // Get pressed key
 
         if (key != 0xAA && buffer_index < 16)
         {
@@ -31,8 +31,8 @@ int main(void)
 
         if (key == '=')
         {
-            s32 num1, num2, result;
-            s8 operator;
+            int num1, num2, result;
+            char operator;
 
             // Use sscanf to extract numbers and operator from buffer
             sscanf(buffer, "%d %c %d", &num1, &operator, &num2);
@@ -73,12 +73,9 @@ int main(void)
 
             // Clear buffer and reset index
             buffer_index = 0;
-            _delay_ms(2000);
-            LCD_voidClearDisplay();
         }
 
-        _delay_ms(100);
-       // Delay for stability
+        _delay_ms(100); // Delay for stability
     }
 
     return 0;
